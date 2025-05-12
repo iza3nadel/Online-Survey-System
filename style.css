@@ -1,1 +1,39 @@
+body {
+    background-color: #d9d9d9;
+}
 
+.emblem {
+    width: 16.5rem;
+    height: 16.5rem;
+    margin: 2rem;
+}
+
+.button {
+    display: flex;
+    background-color: #1c1f33;
+    width: 32.5rem;
+    height: 7.5rem;
+    border-radius: 25px;
+    align-items: center;
+    justify-content: center;
+    color: #d9d9d9;
+    margin: 1rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-family: Inter;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 97vh;
+}
+
+a {
+    text-decoration: none;
+    color: #FFFFFF;
+}
