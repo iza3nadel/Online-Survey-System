@@ -26,6 +26,25 @@ body {
     margin: 1rem;
 }
 
+.button-row {
+    display: flex;
+    justify-content: space-between; 
+    margin-top: 1rem;  
+}
+
+.small-button {
+    display: flex;
+    background-color: #1c1f33;
+    width: 290px;
+    height: 100px;
+    border-radius: 40px;
+    align-items: center;
+    justify-content: center;
+    color: #d9d9d9;
+    margin: 1rem;
+    font-size: 38px;
+}
+
 h1 {
     font-size: 50px;
 }
