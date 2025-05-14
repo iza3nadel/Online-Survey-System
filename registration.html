@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link rel="stylesheet" href="./style-registration.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" />
+</head>
+<body>
+    <div class="arrow">
+        <img class="arrow" alt="arrow" src="pictures/arrow-left.png">
+    </div>
+    <div class="container">
+        <div class="icon">
+            <img class="icon-head" alt="icon-head" src="pictures/head.png">
+            <img class="icon-body" alt="icon-body" src="pictures/body.png">
+        </div>
+        <div class="form-background">
+            <form action="register.php" method="POST">
+                <input type="text" id="username" name="username" placeholder="Nazwa użytkownika" required>
+                <input type="email" id="email" name="email" placeholder="E-mail" required>
+                <input type="password" id="password" name="password" placeholder="Hasło" required>
+                <button type="submit">Zarejestruj się</button>
+            </form>
+        </div>
+    </div>
+
+            
+</body>
+</html>
