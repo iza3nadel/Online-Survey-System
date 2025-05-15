@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Question editing</title>
+    <link rel="stylesheet" href="./style-editing.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" />
+</head>
+<body>
+    <header>
+        <img class="icon arrow" alt="arrow" src="./pictures/arrow-left.png">
+        <p class="title">Edycja pytań</p>
+    </header>
+    
+    <div class="container">
+        <div class="question-box">
+            <div class="question-header">
+                <span>Pytanie 1</span>
+                <div class="icons">
+                    <img class="icon" src="./pictures/arrow-down.png" alt="arrow-down" />
+                    <img class="icon" src="./pictures/arrow-up.png" alt="arrow-up" />
+                    <img class="icon" src="./pictures/delete.png" alt="delete" />
+                </div>
+            </div>
+            <div class="question-body">
+                <p class="question">W jakim jesteś wieku?</p>
+                <form>
+                <label><input type="radio" name="age">18 - 25 lat</label><br>
+                <label><input type="radio" name="age">26 - 39 lat</label><br>
+                <label><input type="radio" name="age">40 - 54 lata</label><br>
+                <label><input type="radio" name="age">55 - 69 lat</label><br>
+                <label><input type="radio" name="age">+70 lat</label>
+                </form>
+                <p class="tag">Etykieta:</p>
+                <input type="text" placeholder="Opisz pytanie jednym słowem" class="label-input" />
+            </div>
+        </div>
+
+        <div class="question-box">
+            <div class="question-header">
+                <span>Pytanie 2</span>
+                <div class="icons">
+                    <img class="icon" src="./pictures/arrow-down.png" alt="arrow-down" />
+                    <img class="icon" src="./pictures/arrow-up.png" alt="arrow-up" />
+                    <img class="icon" src="./pictures/delete.png" alt="delete" />
+                </div>
+            </div>
+            <div class="question-body">
+                <p class="question">Jaka jest twoja płeć?</p>
+                <form>
+                    <label><input type="radio" name="gender">Kobieta</label><br>
+                    <label><input type="radio" name="gender">Mężczyzna</label><br>
+                    <label><input type="radio" name="gender">Osoba niebinarna</label><br>
+                    <label><input type="radio" name="gender">Wolę nie podawać</label>
+                </form>
+                <p class="tag">Etykieta:</p>
+                <input type="text" placeholder="Opisz pytanie jednym słowem" class="label-input" />
+            </div>
+        </div>
+
+        <div class="button-container">
+            <button class="add-button">Dodaj nowe pytanie</button>
+        </div>
+    </div>
