@@ -105,6 +105,7 @@ form label input {
 
 input[type="radio"] {
   transform: scale(2);
+  accent-color: #1C1F33;
 }
 
 .label-input {
