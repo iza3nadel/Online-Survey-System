@@ -4,21 +4,22 @@
     font-family: 'Poppins', sans-serif;  
 }
 
-body {
+body, html {
     background-color: #d9d9d9;
+    height: 100%;
 }
 
 .emblem {
-    width: 16.5rem;
-    height: 16.5rem;
-    margin: 2rem;
+    width: 200px;
+    height: 200px;
+    margin-bottom: 20px;
 }
 
 .button {
     display: flex;
     background-color: #1c1f33;
-    width: 600px;
-    height: 100px;
+    width: 450px;
+    height: 75px;
     border-radius: 40px;
     align-items: center;
     justify-content: center;
@@ -27,7 +28,7 @@ body {
 }
 
 h1 {
-    font-size: 50px;
+    font-size: 35px;
 }
 
 .container {

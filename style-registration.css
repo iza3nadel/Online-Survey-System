@@ -32,20 +32,22 @@ body {
     justify-content: center;    
     z-index: 2;
     position: relative;
-    top: 45px;
+    top: -15px;
 }
 
 .form-background {
     border-radius: 50px;
     background-color: rgba(217, 217, 217, 0.2);
     box-sizing: border-box;
-    height: 410px;
+    height: 370px;
     width: 520px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column; 
     z-index: 1;
+    top: -60px;
+    position: relative;
     
 }
 
@@ -76,20 +78,27 @@ button[type="submit"] {
     height: 60px;
     width: 280px;
     position: relative;
-    top: 100px;
+    top: 80px;
     border: none;
     color: #FFFFFF;
     font-size: 24px;
 }
 
 input[type="text"],
-input[type="password"],
 input[type="email"] {
   background-color: #d9d9d9;
   border: none;
   padding: 0.8rem 1rem;
   font-size: 1rem;
   margin-bottom: 1.6rem;
+}
+
+input[type="password"] {
+  background-color: #d9d9d9;
+  border: none;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  margin-bottom: 0.6rem;
 }
 
 input::placeholder {
