@@ -17,21 +17,12 @@ body {
 }
 
 .background-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 35px;
-  padding: 2rem;
-}
-
-.form-wrapper {
   background-color: #ffffff;
   border-radius: 40px;
   width: 660px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 60px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
@@ -45,6 +36,8 @@ body {
   justify-content: center;
   align-items: center;
   color: #fff;
+  position: relative;
+  top: -80px;
 }
 
 .question-header h1 {
@@ -60,6 +53,8 @@ body {
   align-items: center;
   gap: 35px;
   width: 100%;
+  position: relative;
+  top: -50px;
 }
 
 .form-box h2 {
@@ -116,6 +111,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  bottom: -30px;
 }
 
 .navigation-buttons button:hover {
