@@ -1,1 +1,50 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generowanie wykresów</title>
+  <link rel="stylesheet" href="style-charts.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <button class="back-btn" aria-label="Powrót">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="white" viewBox="0 0 24 24">
+          <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+        </svg>
+      </button>
+      <h1 class="title">Generowanie wykresów</h1>
+    </div>
 
+    <div class="section">
+      <label>Wybierz zakres danych do przedstawienia na wykresach:</label>
+      <div class="select-wrapper">
+        <select>
+          <option>Wiek</option>
+          <option>Płeć</option>
+          <option>Wykształcenie</option>
+        </select>
+      </div>
+      <div class="select-wrapper">
+        <select>
+          <option>Kandydat</option>
+          <option>Partia</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="section">
+      <label>Wybierz rodzaj wykresu:</label>
+      <div class="select-wrapper">
+        <select>
+          <option>Wykres słupkowy</option>
+          <option>Wykres kołowy</option>
+        </select>
+      </div>
+    </div>
+
+    <button disabled>Generuj</button>
+  </div>
+</body>
+</html>
