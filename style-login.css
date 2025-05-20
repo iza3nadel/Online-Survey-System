@@ -76,7 +76,7 @@ button[type="submit"] {
     height: 60px;
     width: 280px;
     position: relative;
-    top: 100px;
+    top: 90px;
     border: none;
     color: #FFFFFF;
     font-size: 24px;
@@ -88,6 +88,11 @@ input[type="password"] {
   border: none;
   padding: 0.8rem 1rem;
   font-size: 1rem;
+  
+}
+
+input[type="text"] {
+    margin-bottom: 1.6rem;
 }
 
 input::placeholder {
