@@ -132,6 +132,7 @@ body {
 
   .question-header {
     width: 100%;
+    
     height: auto;
     padding: 1rem;
     font-size: 32px;
@@ -165,7 +166,7 @@ body {
 
   .next-button {
     position: absolute;  
-    bottom: -25px;        
+    bottom: -75px;        
     left: 50%;
     transform: translateX(-50%);
     width: auto;
