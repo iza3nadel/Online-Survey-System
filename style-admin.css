@@ -9,6 +9,7 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
+    
 }
 
 .arrow {
@@ -113,21 +114,40 @@ h1 {
         top: 10px;
     }
 
-    .emblem {
-        width: 2rem;
-        height: 2rem;
-    }
+    .bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #1C1F33;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+    z-index: 1000;
+  }
 
-    .container-emblem,
-    .container-log {
-        position: static;
-        margin: 1rem 0;
-        display: flex;
-        justify-content: center;
-        width: 100%;
-    }
+  .container-emblem,
+  .container-log {
+    position: static; 
+    margin: 0;
+  }
 
-    body {
-        align-items: center;
-    }
+  .log-out {
+    width: 150px;
+    height: 50px;
+    font-size: 18px;
+    margin-left: 40px;
+  }
+
+  .emblem {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  body {
+    padding-bottom: 80px; 
+    align-items: center;
+  }
 }
