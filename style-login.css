@@ -108,3 +108,61 @@ form {
   gap: 1rem;
   margin-top: 88px;
 }
+@media (max-width: 600px) {
+    .arrow {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin: 1rem;
+    }
+
+    .icon {
+        width: 6rem;
+        height: 6rem;
+        top: 30px;
+    }
+
+    .form-background {
+        width: 90%;
+        height: auto;
+        padding: 2rem 1rem;
+    }
+
+    .icon-head {
+        width: 1.8rem;
+        height: 1.8rem;
+        top: 1rem;
+        left: 1.6rem;
+    }
+
+    .icon-body {
+        height: 1.8rem;
+        top: 3rem;
+        left: -0.9rem;
+    }
+
+    label {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        width: 200px;
+        font-size: 1rem;
+    }
+
+    input::placeholder {
+        font-size: 1rem;
+    }
+
+    button[type="submit"] {
+        width: 100%;
+        height: 50px;
+        font-size: 1.2rem;
+        top: 100px;
+    }
+
+    form {
+        margin-top: 60px;
+    }
+}

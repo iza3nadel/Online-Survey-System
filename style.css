@@ -43,3 +43,26 @@ a {
     text-decoration: none;
     color: #FFFFFF;
 }
+
+@media (max-width: 600px) {
+    .emblem {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 15px;
+    }
+
+    .button {
+        width: 80%;
+        height: 60px;
+        font-size: 16px;
+    }
+
+    h1 {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .container {
+        padding: 1rem;
+    }
+}
