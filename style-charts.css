@@ -101,3 +101,54 @@ select {
     margin: 2rem;
 }
 
+@media (max-width: 600px) {
+    h1 {
+        font-size: 32px;
+        text-align: center;
+        padding: 0 1rem;
+    }
+
+    .container {
+        font-size: 24px;
+        padding: 1rem;
+        gap: 0.75rem;
+    }
+
+    .section {
+        font-size: 18px;
+        gap: 12px;
+        margin-bottom: 1.5rem;
+    }
+
+    .select-wrapper {
+        height: 48px;
+    }
+
+    select {
+        font-size: 16px;
+        padding: 0 40px 0 16px;
+    }
+
+    .button {
+        width: 100%;
+        max-width: 280px;
+        font-size: 18px;
+        height: 50px;
+    }
+
+    .arrow {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin: 1rem;
+    }
+
+    .container-log {
+        position: static;
+        margin: 1rem auto;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+

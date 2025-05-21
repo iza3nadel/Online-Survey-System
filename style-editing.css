@@ -137,3 +137,58 @@ input[type="radio"] {
 .add-button:hover {
   background-color: #e0e0e0;
 }
+
+
+@media (max-width: 600px) {
+    .title {
+        font-size: 32px;
+        text-align: center;
+    }
+
+    header img.icon.arrow {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin: 1rem;
+        position: absolute;
+        left: 0;
+        top: 45px;
+    }
+
+    .question-body {
+        width: 100%;
+        padding: 20px;
+        border-radius: 30px;
+    }
+
+    .question-header span {
+        font-size: 24px;
+    }
+
+    .question {
+        font-size: 24px;
+    }
+
+    label, input, .tag {
+        font-size: 15px;
+    }
+
+    input[type="radio"] {
+        transform: scale(1.5);
+    }
+
+    .add-button {
+        width: 100%;
+        font-size: 24px;
+    }
+
+    .icon {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin: 1rem;
+    }
+
+    .button-container {
+        margin-top: 16px;
+        margin-bottom: 32px;
+    }
+}
