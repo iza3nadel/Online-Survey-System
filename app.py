@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, login_required, logout_user, UserMixin, current_user
 from flask_bcrypt import Bcrypt
@@ -90,10 +90,13 @@ def admin_page():
 def charts_page():
     return render_template("charts.html")
 
+
 @app.route("/editing")
 @login_required
 def editing_page():
-    return render_template("editing.html")
+    questions = Question.query.all()
+    return render_template("editing.html", questions=questions)
+
 
 @app.route("/form2")
 def form2_page():
@@ -110,7 +113,27 @@ class Answer(db.Model):
     text = db.Column(db.String(200), nullable=False)
     question_id = db.Column(db.Integer, db.ForeignKey('question.id'), nullable=False)
 
+@app.route('/save_questions', methods=['POST'])
+@login_required
+def save_questions():
+    data = request.get_json()
+    if not data or 'questions' not in data:
+        return jsonify({'error': 'Brak danych'}), 400
 
+    # Wyczyść istniejące dane (opcjonalnie)
+    Question.query.delete()
+    db.session.commit()
+
+    for q in data['questions']:
+        new_q = Question(text=q['question'], label=q['label'])
+        db.session.add(new_q)
+        db.session.flush()  # Żeby mieć dostęp do new_q.id przed commit
+
+        for a_text in q['answers']:
+            db.session.add(Answer(text=a_text, question_id=new_q.id))
+
+    db.session.commit()
+    return jsonify({'status': 'ok'})
 
 
 if __name__ == "__main__":
