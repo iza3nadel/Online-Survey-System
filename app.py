@@ -99,6 +99,19 @@ def editing_page():
 def form2_page():
     return render_template("form2.html")
 
+class Question(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String(500), nullable=False)
+    label = db.Column(db.String(100))
+    answers = db.relationship('Answer', backref='question', cascade="all, delete", lazy=True)
+
+class Answer(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String(200), nullable=False)
+    question_id = db.Column(db.Integer, db.ForeignKey('question.id'), nullable=False)
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
