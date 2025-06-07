@@ -10,7 +10,7 @@
 <body>
   	<img class="arrow" alt="arrow" src="../static/pictures/arrow-left.png" onclick="location.href='/'" style="cursor: pointer;">
   	<div class="container">
-        <h1>Witaj, Anna!</h1>
+        <h1>Witaj, {{ username }}!</h1>
         <div class="background"><div class="button" onclick="location.href='/editing'" style="cursor: pointer;">Edycja pytań</div></div>
         <div class="background"><div class="button" onclick="location.href='/charts'" style="cursor: pointer;">Generowanie wykresów</div></div>
         <div class="background"><div class="button" style="cursor: pointer;">Eksport danych</div> 	</div>   	
@@ -20,7 +20,7 @@
         <img class="emblem" alt="emblem" src="../static/pictures/emblem.png">
       </div>
       <div class="container-log">
-          <div class="log-out" onclick="location.href='/'" style="cursor: pointer;">Wyloguj się</div>
+          <a href="{{ url_for('logout') }}" class="log-out" style="cursor: pointer;">Wyloguj się</a>
       </div>
     </div>
     

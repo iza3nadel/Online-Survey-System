@@ -8,6 +8,17 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" />
 </head>
 <body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+             {% for category, message in messages %}
+               <div class="flash flash-{{ category }}">{{ message }}</div>
+             {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+
     <div class="arrow">
         <img class="arrow" alt="arrow" src="../static/pictures/arrow-left.png"  onclick="location.href='/main'" style="cursor: pointer;">
     </div>
@@ -17,7 +28,7 @@
             <img class="icon-body" alt="icon-body" src="../static/pictures/body.png">
         </div>
         <div class="form-background">
-            <form action="login.php" method="POST">
+            <form action="{{ url_for('login') }}" method="POST">
                 <input type="text" id="username" name="username" placeholder="Nazwa użytkownika" required>
                 <input type="password" id="password" name="password" placeholder="Hasło" required>
                 <button type="submit">Zaloguj się</button>

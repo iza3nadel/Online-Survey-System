@@ -114,6 +114,20 @@ form {
   gap: 1rem;
   margin-top: 88px;
 }
+
+
+.flash-success {
+    background-color: #28a745; 
+}
+
+.flash-danger {
+    background-color: #dc3545; 
+}
+
+.flash-info {
+    background-color: #17a2b8; 
+}
+
 @media (max-width: 600px) {
     .arrow {
         width: 1.5rem;
