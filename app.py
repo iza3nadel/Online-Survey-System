@@ -61,7 +61,7 @@ def registration_page():
 
         existing_user = User.query.filter((User.username == username) | (User.email == email)).first()
         if existing_user:
-            flash('Użytkownik o tej nazwie lub emailu już istnieje!', 'danger')
+            flash('Użytkownik o tej nazwie lub e-mailu już istnieje!', 'danger')
             return redirect(url_for('registration_page'))
         
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
