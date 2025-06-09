@@ -8,15 +8,17 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" />
 </head>
 <body>
+    
     <header>
         <img class="icon arrow" alt="arrow" src="../static/pictures/arrow-left.png" onclick="location.href='/admin'" style="cursor: pointer;">
         <p class="title">Edycja pytań</p>
     </header>
-    
+
     <div class="container">
+        {% for q in questions %}
         <div class="question-box">
             <div class="question-header">
-                <span>Pytanie 1</span>
+                <span>Pytanie {{ loop.index }}</span>
                 <div class="icons">
                     <img class="icon" src="../static/pictures/arrow-down.png" alt="arrow-down" />
                     <img class="icon" src="../static/pictures/arrow-up.png" alt="arrow-up" />
@@ -24,18 +26,19 @@
                 </div>
             </div>
             <div class="question-body">
-                <p class="question">W jakim jesteś wieku?</p>
+
+                <p class="question" contenteditable="true">{{ q.text }}</p>
                 <form>
-                <label><input type="radio" name="age">18 - 25 lat</label><br>
-                <label><input type="radio" name="age">26 - 39 lat</label><br>
-                <label><input type="radio" name="age">40 - 54 lata</label><br>
-                <label><input type="radio" name="age">55 - 69 lat</label><br>
-                <label><input type="radio" name="age">+70 lat</label>
+                    {% for a in q.answers %}
+                    <label contenteditable="true"><input type="radio" name="q{{ q.id }}">{{ a.text }}</label><br>
+                    {% endfor %}
                 </form>
                 <p class="tag">Etykieta:</p>
-                <input type="text" placeholder="Opisz pytanie jednym słowem" class="label-input" />
+                <input type="text" placeholder="Opisz pytanie jednym słowem" class="label-input" value="{{ q.label }}" />
+
             </div>
         </div>
+        {% endfor %}
 
         <div class="question-box">
             <div class="question-header">
@@ -62,4 +65,11 @@
         <div class="button-container">
             <button class="add-button">Dodaj nowe pytanie</button>
         </div>
+
+        <div class="button-container">
+            <button class="add-button" onclick="saveQuestions()">Zapisz zmiany</button>
+        </div>
     </div>
+
+<script src="../editing.js"></script>
+</body>
