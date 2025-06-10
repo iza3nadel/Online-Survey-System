@@ -14,12 +14,14 @@
         <h1>Pytanie 2</h1>
       </div>
       <div class="form-box">
-        <h2>Jaka jest Twoja płeć?</h2>
+        <h2>{{ question.text }}</h2>
         <form>
-          <label><input type="radio" name="plec" value="kobieta" /> Kobieta</label><br/>
-          <label><input type="radio" name="plec" value="mezczyzna" /> Mężczyzna</label><br/>
-          <label><input type="radio" name="plec" value="niebinarna" /> Osoba niebinarna</label><br/>
-          <label><input type="radio" name="plec" value="nie_podawac" /> Wolę nie podawać</label>
+          {% for answer in question.answers %}
+            <label>
+              <input type="radio" name="{{ question.label }}" value="{{ answer.text }}" />
+              {{ answer.text }}
+            </label><br/>
+          {% endfor %}
         </form>
       </div>
     </div>

@@ -30,40 +30,51 @@
                 <p class="question" contenteditable="true">{{ q.text }}</p>
                 <form>
                     {% for a in q.answers %}
-                    <label contenteditable="true"><input type="radio" name="q{{ q.id }}">{{ a.text }}</label><br>
+                    <label>
+                    <input type="radio" name="q{{ q.id }}">
+                    <span contenteditable="true" class="editable-answer">{{ a.text }}</span>
+                    </label>
                     {% endfor %}
                 </form>
                 <p class="tag">Etykieta:</p>
-                <input type="text" placeholder="Opisz pytanie jednym słowem" class="label-input" value="{{ q.label }}" />
+                <p contenteditable="true" class="label-input">{{ q.label }}</p>
 
             </div>
         </div>
         {% endfor %}
 
         <div class="question-box">
-            <div class="question-header">
-                <span>Pytanie 2</span>
-                <div class="icons">
-                    <img class="icon" src="../static/pictures/arrow-down.png" alt="arrow-down" />
-                    <img class="icon" src="../static/pictures/arrow-up.png" alt="arrow-up" />
-                    <img class="icon" src="../static/pictures/delete.png" alt="delete" />
-                </div>
+    <div class="question-header">
+        <span>Nowe pytanie</span>
+    </div>
+    <div class="question-body">
+        <form id="add-question-form" method="POST" action="{{ url_for('add_question') }}">
+            <p class="question" contenteditable="true" id="new-question-text" data-placeholder="Treść pytania">Treść Pytania</p>
+            <div class="answers-list">
+                <label>
+                    <input type="radio" name="new_question">
+                    <span contenteditable="true" class="editable-answer">Odpowiedź 1</span>
+                </label><br>
+                <label>
+                    <input type="radio" name="new_question">
+                    <span contenteditable="true" class="editable-answer">Odpowiedź 2</span>
+                </label><br>
+                <label>
+                    <input type="radio" name="new_question">
+                    <span contenteditable="true" class="editable-answer">Odpowiedź 3</span>
+                </label><br>
+                <label>
+                    <input type="radio" name="new_question">
+                    <span contenteditable="true" class="editable-answer">Odpowiedź 4</span>
             </div>
-            <div class="question-body">
-                <p class="question">Jaka jest twoja płeć?</p>
-                <form>
-                    <label><input type="radio" name="gender">Kobieta</label><br>
-                    <label><input type="radio" name="gender">Mężczyzna</label><br>
-                    <label><input type="radio" name="gender">Osoba niebinarna</label><br>
-                    <label><input type="radio" name="gender">Wolę nie podawać</label>
-                </form>
-                <p class="tag">Etykieta:</p>
-                <input type="text" placeholder="Opisz pytanie jednym słowem" class="label-input" />
-            </div>
-        </div>
-
+            <p class="tag">Etykieta:</p>
+            <p contenteditable="true" class="label-input" id="new-question-label" data-placeholder="Opisz pytanie jednym słowem"></p>
+        </form>
+    </div>
+</div>
+</div>
         <div class="button-container">
-            <button class="add-button">Dodaj nowe pytanie</button>
+            <button type="button" class="add-button" onclick="submitNewQuestion()">Dodaj pytanie</button>
         </div>
 
         <div class="button-container">
@@ -71,5 +82,5 @@
         </div>
     </div>
 
-<script src="../editing.js"></script>
+<script src="{{ url_for('static', filename='js/editing.js') }}"></script>
 </body>
