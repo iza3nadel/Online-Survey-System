@@ -14,19 +14,26 @@
         <h1>Pytanie 1</h1>
       </div>
       <div class="form-box">
-        <h2>W jakim jesteś wieku?</h2>
+      {% if question %}
+        <h2>{{ question.text }}</h2>
         <form>
-          <label><input type="radio" name="wiek" /> 18 – 25 lat</label><br/>
-          <label><input type="radio" name="wiek" /> 26 – 39 lat</label><br/>
-          <label><input type="radio" name="wiek" /> 40 – 54 lata</label><br/>
-          <label><input type="radio" name="wiek" /> 55 – 69 lat</label><br/>
-          <label><input type="radio" name="wiek" /> +70 lat</label>
+          {% for answer in question.answers %}
+            <label>
+              <input type="radio" name="{{ question.label }}" value="{{ answer.text }}" />
+              {{ answer.text }}
+            </label><br/>
+          {% endfor %}
         </form>
-      </div>
+      {% else %}
+        <p>Brak pytań w bazie.</p>
+      {% endif %}
+    </div>
     </div>
     <div class="next-button">
-      <button type="button">
-        <img src="../static/pictures/arrow-next.png" alt="Dalej" onclick="location.href='/form2'" style="cursor: pointer;"/>
+      <button type="button" class="nav-button" id="next-button"
+        data-href="{{ url_for('form_dynamic', question_number=1) }}"
+        onclick="location.href=this.dataset.href">
+        <img src="../static/pictures/arrow-next.png" alt="Dalej" style="cursor: pointer;"/>
       </button>
     </div>
   </div>

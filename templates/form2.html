@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Form</title>
+  <title>Formularz</title>
   <link rel="stylesheet" href="../static/css/style-form2.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" />
 </head>
@@ -11,28 +11,40 @@
   <div class="background-wrapper">
     <div class="form-wrapper">
       <div class="question-header">
-        <h1>Pytanie 2</h1>
+        <h1>Pytanie {{ question_number + 1 }}</h1>
       </div>
       <div class="form-box">
-        <h2>{{ question.text }}</h2>
-        <form>
-          {% for answer in question.answers %}
-            <label>
-              <input type="radio" name="{{ question.label }}" value="{{ answer.text }}" />
-              {{ answer.text }}
-            </label><br/>
-          {% endfor %}
-        </form>
+        {% if question %}
+          <h2>{{ question.text }}</h2>
+          <form>
+            {% for answer in question.answers %}
+              <label>
+                <input type="radio" name="{{ question.label }}" value="{{ answer.text }}" />
+                {{ answer.text }}
+              </label><br/>
+            {% endfor %}
+          </form>
+        {% else %}
+          <p>Brak pytań w bazie.</p>
+        {% endif %}
       </div>
     </div>
     <div class="navigation-buttons">
-      <button type="button" class="nav-button" id="prev-button">
-        <img src="../static/pictures/arrow-back.png" alt="Wstecz" onclick="location.href='/form'" style="cursor: pointer;"/>
-      </button>
-      <button type="button" class="nav-button" id="next-button">
-        <img src="../static/pictures/arrow-next.png" alt="Dalej" />
-      </button>
-    </div>
+  {% if prev_number is not none %}
+  <button type="button" class="nav-button" id="prev-button"
+    data-href="{{ url_for('form_dynamic', question_number=prev_number) }}"
+    onclick="location.href=this.dataset.href">
+    <img src="../static/pictures/arrow-back.png" alt="Wstecz" style="cursor: pointer;"/>
+  </button>
+  {% endif %}
+  {% if next_number is not none %}
+  <button type="button" class="nav-button" id="next-button"
+    data-href="{{ url_for('form_dynamic', question_number=next_number) }}"
+    onclick="location.href=this.dataset.href">
+    <img src="../static/pictures/arrow-next.png" alt="Dalej" style="cursor: pointer;"/>
+  </button>
+  {% endif %}
+</div>
   </div>
 </body>
 </html>
