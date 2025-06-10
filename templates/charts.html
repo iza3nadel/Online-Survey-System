@@ -17,15 +17,15 @@
       <label>Wybierz zakres danych do przedstawienia na wykresach:</label>
       <div class="select-wrapper">
         <select>
-          <option>Wiek</option>
-          <option>Płeć</option>
-          <option>Wykształcenie</option>
+          <option value="age">Wiek</option>
+          <option value="gender">Płeć</option>
+          <option value="education">Wykształcenie</option>
         </select>
       </div>
       <div class="select-wrapper">
         <select>
-          <option>Kandydat</option>
-          <option>Partia</option>
+          <option value="candidate">Kandydat</option>
+          <option value="party">Partia</option>
         </select>
       </div>
     </div>
@@ -40,7 +40,63 @@
       </div>
     </div>
 
-    <div class="button">Generuj</div>
+    <!-- ...istniejący kod... -->
+    <div class="button" id="generate-btn">Generuj</div>
+    <div class="chart-wrapper">
+      <canvas id="myChart" style="width: 100%; margin-top: 2rem;"></canvas>
+    </div>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    let myChart = null;
+    document.getElementById('generate-btn').onclick = async function() {
+      const selects = document.querySelectorAll('select');
+      const group_by = selects[0].value.toLowerCase();
+      const value = selects[1].value.toLowerCase();
+      const chartType = selects[2].value.includes('kołowy') ? 'pie' : 'bar';
+
+      const res = await fetch(`/api/chart-data?group_by=${group_by}&value=${value}`);
+      const data = await res.json();
+
+      const labels = Object.keys(data);
+
+      // Dodaj sprawdzenie czy są dane
+      if (!labels.length) {
+        alert("Brak danych do wyświetlenia wykresu dla wybranych opcji.");
+        return;
+      }
+
+      const datasets = [];
+      const allValues = new Set();
+      labels.forEach(l => Object.keys(data[l]).forEach(v => allValues.add(v)));
+      allValues.forEach(val => {
+        datasets.push({
+          label: val,
+          data: labels.map(l => data[l][val] || 0),
+          backgroundColor: '#' + Math.floor(Math.random()*16777215).toString(16)
+        });
+      });
+
+      if (myChart) myChart.destroy();
+      const ctx = document.getElementById('myChart').getContext('2d');
+      myChart = new Chart(ctx, {
+        type: chartType,
+        data: {
+          labels: labels,
+          datasets: chartType === 'pie'
+            ? [{
+                data: labels.map(l => Object.values(data[l]).reduce((a, b) => a + b, 0)),
+                backgroundColor: labels.map(() => '#' + Math.floor(Math.random()*16777215).toString(16)),
+                label: value
+              }]
+            : datasets
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: true } }
+        }
+      });
+    };
+  </script>
 </body>
 </html>

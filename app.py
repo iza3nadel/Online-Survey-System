@@ -27,6 +27,15 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(150), unique=True,nullable=False)
     password = db.Column(db.String(150),nullable=False)
 
+class SurveyResponse(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    age = db.Column(db.String(50))
+    gender = db.Column(db.String(50))
+    education = db.Column(db.String(100))
+    residence = db.Column(db.String(100))
+    candidate = db.Column(db.String(100))
+    party = db.Column(db.String(100))
+
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
@@ -168,6 +177,52 @@ def add_question():
     flash('Dodano nowe pytanie!', 'success')
     return redirect(url_for('editing_page'))
 
+@app.route('/api/chart-data')
+@login_required
+def chart_data():
+    group_by = request.args.get('group_by')  # np. 'age', 'gender', 'education'
+    value = request.args.get('value')        # np. 'candidate', 'party'
+
+    if not group_by or not value:
+        return jsonify({'error': 'Brak parametrów'}), 400
+
+    results = db.session.query(
+        getattr(SurveyResponse, group_by),
+        getattr(SurveyResponse, value),
+        db.func.count()
+    ).group_by(
+        getattr(SurveyResponse, group_by),
+        getattr(SurveyResponse, value)
+    ).all()
+
+    data = {}
+    for group, val, count in results:
+        if group not in data:
+            data[group] = {}
+        data[group][val] = count
+
+    return jsonify(data)
+
+
+#dane testowe 
+@app.route('/add_test_responses')
+def add_test_responses():
+    test_data = [
+        {"age": "18-25", "gender": "Kobieta", "education": "Wyższe", "residence": "Miasto", "candidate": "Jan Kowalski", "party": "Partia A"},
+        {"age": "26-35", "gender": "Mężczyzna", "education": "Średnie", "residence": "Wieś", "candidate": "Anna Nowak", "party": "Partia B"},
+        {"age": "18-25", "gender": "Mężczyzna", "education": "Podstawowe", "residence": "Miasto", "candidate": "Jan Kowalski", "party": "Partia A"},
+        {"age": "36-45", "gender": "Kobieta", "education": "Wyższe", "residence": "Wieś", "candidate": "Anna Nowak", "party": "Partia B"},
+        {"age": "26-35", "gender": "Kobieta", "education": "Średnie", "residence": "Miasto", "candidate": "Jan Kowalski", "party": "Partia A"},
+        {"age": "46-60", "gender": "Mężczyzna", "education": "Wyższe", "residence": "Miasto", "candidate": "Anna Nowak", "party": "Partia B"},
+        {"age": "18-25", "gender": "Kobieta", "education": "Średnie", "residence": "Wieś", "candidate": "Jan Kowalski", "party": "Partia A"},
+        {"age": "36-45", "gender": "Mężczyzna", "education": "Podstawowe", "residence": "Miasto", "candidate": "Anna Nowak", "party": "Partia B"},
+        {"age": "70+", "gender": "Kobieta", "education": "Wyższe", "residence": "Wieś", "candidate": "Jan Kowalski", "party": "Partia A"},
+        {"age": "26-35", "gender": "Mężczyzna", "education": "Średnie", "residence": "Miasto", "candidate": "Anna Nowak", "party": "Partia B"},
+    ]
+    for entry in test_data:
+        db.session.add(SurveyResponse(**entry))
+    db.session.commit()
+    return "Dodano testowe odpowiedzi!"
 
 if __name__ == "__main__":
     app.run(debug=True)
