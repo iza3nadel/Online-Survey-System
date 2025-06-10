@@ -101,6 +101,20 @@ select {
     margin: 2rem;
 }
 
+.chart-wrapper {
+    background: #d9d9d9; 
+    border-radius: 20px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+    padding: 32px 24px;
+    margin: 2rem auto;
+    max-width: 900px;
+    width: 100%;   
+    min-height: 700px;   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 @media (max-width: 600px) {
     h1 {
         font-size: 32px;
