@@ -73,3 +73,95 @@ function submitNewQuestion() {
     document.body.appendChild(form);
     form.submit();
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.icon[alt="arrow-down"]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            const questionBox = btn.closest('.question-box');
+            const nextBox = questionBox.nextElementSibling;
+            if (nextBox && nextBox.classList.contains('question-box') && !nextBox.querySelector('#add-question-form')) {
+                questionBox.parentNode.insertBefore(nextBox, questionBox);
+                updateQuestionNumbers();
+            }
+        });
+    }); // <-- zamknięcie pętli arrow-down
+
+    document.querySelectorAll('.icon[alt="arrow-up"]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            const questionBox = btn.closest('.question-box');
+            const prevBox = questionBox.previousElementSibling;
+            if (prevBox && prevBox.classList.contains('question-box') && !prevBox.querySelector('#add-question-form')) {
+                questionBox.parentNode.insertBefore(questionBox, prevBox);
+                updateQuestionNumbers();
+            }
+        });
+    }); // <-- zamknięcie pętli arrow-up
+
+    document.querySelectorAll('.icon[alt="delete"]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            const questionBox = btn.closest('.question-box');
+            if (confirm('Czy na pewno chcesz usunąć to pytanie?')) {
+                questionBox.remove();
+                updateQuestionNumbers();
+            }
+        });
+    }); // <-- zamknięcie pętli delete
+});
+
+function updateQuestionNumbers() {
+    document.querySelectorAll('.question-box').forEach((box, idx) => {
+        const headerSpan = box.querySelector('.question-header span');
+        if (headerSpan) {
+            headerSpan.textContent = `Pytanie ${idx + 1}`;
+        }
+    });
+}
+
+let isDirty = false;
+
+// Oznacz stronę jako "zmienioną" przy edycji pól
+document.addEventListener('input', function(e) {
+    if (
+        e.target.classList.contains('editable-answer') ||
+        e.target.classList.contains('label-input') ||
+        e.target.classList.contains('question')
+    ) {
+        isDirty = true;
+    }
+});
+
+// Oznacz stronę jako "zmienioną" przy przesuwaniu lub usuwaniu pytań
+document.addEventListener('click', function(e) {
+    if (
+        e.target.classList.contains('icon') &&
+        (e.target.alt === 'arrow-up' || e.target.alt === 'arrow-down' || e.target.alt === 'delete')
+    ) {
+        isDirty = true;
+    }
+});
+
+// Ostrzeżenie przy próbie wyjścia
+window.addEventListener('beforeunload', function(e) {
+    if (isDirty) {
+        e.preventDefault();
+        e.returnValue = '';
+    }
+});
+
+// Po zapisaniu zmian resetuj flagę
+function saveQuestions() {
+    const data = collectData();
+
+    fetch('/save_questions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ questions: data })
+    }).then(response => {
+        if (response.ok) {
+            alert("Pytania zapisane!");
+            isDirty = false; // <-- reset flagi po zapisie
+        } else {
+            alert("Błąd zapisu.");
+        }
+    });
+}
