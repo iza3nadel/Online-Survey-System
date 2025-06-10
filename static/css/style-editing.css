@@ -17,6 +17,9 @@ body {
     cursor: pointer;
 }
 
+.question-header span {
+    cursor: default;
+}
 
 .container {
     display: flex;

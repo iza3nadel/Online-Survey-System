@@ -10,6 +10,17 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 
+class Question(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String(500), nullable=False)
+    label = db.Column(db.String(100))
+    answers = db.relationship('Answer', backref='question', cascade="all, delete", lazy=True)
+
+class Answer(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String(200), nullable=False)
+    question_id = db.Column(db.Integer, db.ForeignKey('question.id'), nullable=False)
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(150), unique=True, nullable=False)
@@ -100,18 +111,10 @@ def editing_page():
 
 @app.route("/form2")
 def form2_page():
-    return render_template("form2.html")
+    question = Question.query.filter_by(label="plec").first()
+    return render_template("form2.html", question=question)
 
-class Question(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.String(500), nullable=False)
-    label = db.Column(db.String(100))
-    answers = db.relationship('Answer', backref='question', cascade="all, delete", lazy=True)
 
-class Answer(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.String(200), nullable=False)
-    question_id = db.Column(db.Integer, db.ForeignKey('question.id'), nullable=False)
 
 @app.route('/save_questions', methods=['POST'])
 @login_required
@@ -120,20 +123,42 @@ def save_questions():
     if not data or 'questions' not in data:
         return jsonify({'error': 'Brak danych'}), 400
 
-    # Wyczyść istniejące dane (opcjonalnie)
+    # Wyczyść stare pytania i odpowiedzi
+    Answer.query.delete()
     Question.query.delete()
     db.session.commit()
 
+    # Dodaj nowe pytania i odpowiedzi
     for q in data['questions']:
-        new_q = Question(text=q['question'], label=q['label'])
-        db.session.add(new_q)
-        db.session.flush()  # Żeby mieć dostęp do new_q.id przed commit
-
-        for a_text in q['answers']:
-            db.session.add(Answer(text=a_text, question_id=new_q.id))
-
+        question = Question(text=q['question'], label=q['label'])
+        db.session.add(question)
+        db.session.flush()  # żeby mieć question.id
+        for a in q['answers']:
+            db.session.add(Answer(text=a, question_id=question.id))
     db.session.commit()
-    return jsonify({'status': 'ok'})
+    return jsonify({'success': True})
+
+@app.route('/add_question', methods=['POST'])
+@login_required
+def add_question():
+    question_text = request.form.get('question_text', '').strip()
+    question_label = request.form.get('question_label', '').strip()
+    answers = request.form.getlist('answers')
+
+    if not question_text or not question_label or len(answers) < 2:
+        flash('Uzupełnij pytanie, etykietę i przynajmniej dwie odpowiedzi!', 'danger')
+        return redirect(url_for('editing_page'))
+
+    new_q = Question(text=question_text, label=question_label)
+    db.session.add(new_q)
+    db.session.flush()  # Żeby mieć new_q.id
+
+    for a in answers:
+        if a.strip():
+            db.session.add(Answer(text=a.strip(), question_id=new_q.id))
+    db.session.commit()
+    flash('Dodano nowe pytanie!', 'success')
+    return redirect(url_for('editing_page'))
 
 
 if __name__ == "__main__":
