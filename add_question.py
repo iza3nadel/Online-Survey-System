@@ -3,7 +3,7 @@ from app import Question, Answer
 
 with app.app_context():
     # Tworzymy pytanie
-    question = Question(text="W jakim jesteś wieku?")
+    question = Question(text="W jakim jesteś wieku?", label="wiek")
     db.session.add(question)
     db.session.commit()  # Najpierw zapisujemy, by mieć id pytania
     

@@ -45,7 +45,21 @@ def main_page():
 
 @app.route("/form")
 def form_page():
-    return render_template("form.html")
+    question = Question.query.first()
+    return render_template("form.html", question=question)
+
+@app.route("/form/<int:question_number>")
+def form_dynamic(question_number):
+    questions = Question.query.order_by(Question.id).all()
+    if 0 <= question_number < len(questions):
+        question = questions[question_number]
+        next_number = question_number + 1 if question_number + 1 < len(questions) else None
+        prev_number = question_number - 1 if question_number > 0 else None
+    else:
+        question = None
+        next_number = None
+        prev_number = None
+    return render_template("form2.html", question=question, question_number=question_number, next_number=next_number, prev_number=prev_number)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -107,12 +121,6 @@ def charts_page():
 def editing_page():
     questions = Question.query.all()
     return render_template("editing.html", questions=questions)
-
-
-@app.route("/form2")
-def form2_page():
-    question = Question.query.filter_by(label="plec").first()
-    return render_template("form2.html", question=question)
 
 
 
