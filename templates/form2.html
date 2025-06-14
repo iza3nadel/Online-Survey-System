@@ -8,11 +8,11 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" />
 </head>
 <body>
+  <div class="question-header">
+    <h1>Pytanie {{ question_number + 1 }}</h1>
+  </div>
   <div class="background-wrapper">
     <div class="form-wrapper">
-      <div class="question-header">
-        <h1>Pytanie {{ question_number + 1 }}</h1>
-      </div>
       <div class="form-box">
         {% if question %}
           <h2>{{ question.text }}</h2>

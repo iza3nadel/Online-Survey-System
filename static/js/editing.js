@@ -71,6 +71,7 @@ function submitNewQuestion() {
     });
 
     document.body.appendChild(form);
+    isDirty = false;
     form.submit();
 }
 
