@@ -16,35 +16,37 @@
       <div class="form-box">
         {% if question %}
           <h2>{{ question.text }}</h2>
-          <form>
+          <form method="POST" action="{{ url_for('form_dynamic', question_number=question_number) }}">
             {% for answer in question.answers %}
               <label>
-                <input type="radio" name="{{ question.label }}" value="{{ answer.text }}" />
+                <input type="radio" name="answer" value="{{ answer.text }}" required />
                 {{ answer.text }}
               </label><br/>
             {% endfor %}
+            <div class="navigation-buttons">
+              {% if prev_number is not none %}
+              <button type="button" class="nav-button" id="prev-button"
+                data-href="{{ url_for('form_page', question_number=prev_number) }}"
+                onclick="location.href=this.dataset.href">
+                <img src="../static/pictures/arrow-back.png" alt="Wstecz" style="cursor: pointer;"/>
+              </button>
+              {% endif %}
+              {% if next_number is not none %}
+              <button type="submit" class="nav-button" id="next-button">
+                <img src="../static/pictures/arrow-next.png" alt="Dalej" style="cursor: pointer;"/>
+              </button>
+              {% else %}
+              <button type="submit" class="nav-button" id="finish-button">
+                Zakończ
+              </button>
+              {% endif %}
+            </div>
           </form>
         {% else %}
           <p>Brak pytań w bazie.</p>
         {% endif %}
       </div>
     </div>
-    <div class="navigation-buttons">
-  {% if prev_number is not none %}
-  <button type="button" class="nav-button" id="prev-button"
-    data-href="{{ url_for('form_dynamic', question_number=prev_number) }}"
-    onclick="location.href=this.dataset.href">
-    <img src="../static/pictures/arrow-back.png" alt="Wstecz" style="cursor: pointer;"/>
-  </button>
-  {% endif %}
-  {% if next_number is not none %}
-  <button type="button" class="nav-button" id="next-button"
-    data-href="{{ url_for('form_dynamic', question_number=next_number) }}"
-    onclick="location.href=this.dataset.href">
-    <img src="../static/pictures/arrow-next.png" alt="Dalej" style="cursor: pointer;"/>
-  </button>
-  {% endif %}
-</div>
   </div>
 </body>
 </html>
