@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, login_required, logout_user, UserMixin, current_user
 from flask_bcrypt import Bcrypt
+import random
 
 app = Flask(__name__)
 app.secret_key = "tajny klucz" 
@@ -20,6 +21,12 @@ class Answer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(200), nullable=False)
     question_id = db.Column(db.Integer, db.ForeignKey('question.id'), nullable=False)
+
+class Response(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    survey_id = db.Column(db.Integer)
+    question_label = db.Column(db.String(100))
+    answer_text = db.Column(db.String(200))
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -53,12 +60,11 @@ def main_page():
     return render_template("main.html")
 
 @app.route("/form")
-def form_page():
-    question = Question.query.first()
-    return render_template("form.html", question=question)
+def form_page1():
+    return redirect(url_for('form_dynamic', question_number=0))
 
 @app.route("/form/<int:question_number>")
-def form_dynamic(question_number):
+def form_page(question_number):
     questions = Question.query.order_by(Question.id).all()
     if 0 <= question_number < len(questions):
         question = questions[question_number]
@@ -180,28 +186,26 @@ def add_question():
 @app.route('/api/chart-data')
 @login_required
 def chart_data():
-    group_by = request.args.get('group_by')  # np. 'age', 'gender', 'education'
-    value = request.args.get('value')        # np. 'candidate', 'party'
-
-    if not group_by or not value:
-        return jsonify({'error': 'Brak parametrów'}), 400
-
-    results = db.session.query(
-        getattr(SurveyResponse, group_by),
-        getattr(SurveyResponse, value),
-        db.func.count()
-    ).group_by(
-        getattr(SurveyResponse, group_by),
-        getattr(SurveyResponse, value)
-    ).all()
-
+    # Pobierz wszystkie odpowiedzi z bazy
+    responses = Response.query.all()
+    # Przykład: zlicz odpowiedzi dla każdego pytania (question_label)
     data = {}
-    for group, val, count in results:
-        if group not in data:
-            data[group] = {}
-        data[group][val] = count
+    for r in responses:
+        if r.question_label not in data:
+            data[r.question_label] = {}
+        if r.answer_text not in data[r.question_label]:
+            data[r.question_label][r.answer_text] = 0
+        data[r.question_label][r.answer_text] += 1
 
-    return jsonify(data)
+    # Zamień na listę słowników (łatwiejsze do użycia w JS)
+    chart_data = []
+    for label, answers in data.items():
+        chart_data.append({
+            'question_label': label,
+            'answers': [{'text': k, 'count': v} for k, v in answers.items()]
+        })
+
+    return jsonify(chart_data)
 
 
 #dane testowe 
@@ -223,6 +227,53 @@ def add_test_responses():
         db.session.add(SurveyResponse(**entry))
     db.session.commit()
     return "Dodano testowe odpowiedzi!"
+
+
+@app.route("/form/<int:question_number>", methods=["GET", "POST"])
+def form_dynamic(question_number):
+    questions = Question.query.order_by(Question.id).all()
+    if 0 <= question_number < len(questions):
+        question = questions[question_number]
+        next_number = question_number + 1 if question_number + 1 < len(questions) else None
+        prev_number = question_number - 1 if question_number > 0 else None
+    else:
+        question = None
+        next_number = None
+        prev_number = None
+
+    # GENERUJ survey_id na początku ankiety
+    if 'survey_id' not in session:
+        session['survey_id'] = random.randint(100000, 999999)
+    survey_id = session['survey_id']
+
+    if request.method == "POST":
+        answer = request.form.get("answer")
+        if answer:
+            response = Response(
+                survey_id=survey_id,
+                question_label=question.label,
+                answer_text=answer
+            )
+            db.session.add(response)
+            db.session.commit()
+        # Jeśli to było ostatnie pytanie, przekieruj do thankYou
+        if next_number is not None:
+            return redirect(url_for('form_dynamic', question_number=next_number))
+        else:
+            session.pop('survey_id', None)
+            return redirect(url_for('thank_you'))
+
+    return render_template(
+        "form2.html",
+        question=question,
+        question_number=question_number,
+        next_number=next_number,
+        prev_number=prev_number
+    )
+
+@app.route("/thank_you")
+def thank_you():
+    return render_template("thankYou.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
