@@ -115,6 +115,10 @@ select {
     justify-content: center;
 }
 
+#download-btn {
+    margin-bottom: 2rem;
+}
+
 @media (max-width: 600px) {
     h1 {
         font-size: 32px;

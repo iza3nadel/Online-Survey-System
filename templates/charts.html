@@ -14,89 +14,40 @@
     <h1>Generowanie wykresów</h1>
 
     <div class="section">
-      <label>Wybierz zakres danych do przedstawienia na wykresach:</label>
+      <label>Wybierz rodzaj wykresu:</label>
       <div class="select-wrapper">
-        <select>
-          <option value="age">Wiek</option>
-          <option value="gender">Płeć</option>
-          <option value="education">Wykształcenie</option>
-        </select>
-      </div>
-      <div class="select-wrapper">
-        <select>
-          <option value="candidate">Kandydat</option>
-          <option value="party">Partia</option>
+        <select id="chart-type-select">
+          <option value="bar" selected>Wykres słupkowy</option>
+          <option value="pie">Wykres kołowy</option>
         </select>
       </div>
     </div>
 
     <div class="section">
-      <label>Wybierz rodzaj wykresu:</label>
+      <label>Wybierz etykietę X:</label>
       <div class="select-wrapper">
-        <select>
-          <option selected>Wykres słupkowy</option>
-          <option>Wykres kołowy</option>
+        <select id="x-label-select">
+          <option value="">-- Wybierz --</option>
+        </select>
+      </div>
+    </div>
+    <div class="section">
+      <label>Wybierz etykietę Y:</label>
+      <div class="select-wrapper">
+        <select id="y-label-select">
+          <option value="">-- Wybierz --</option>
         </select>
       </div>
     </div>
 
-    <!-- ...istniejący kod... -->
     <div class="button" id="generate-btn">Generuj</div>
     <div class="chart-wrapper">
       <canvas id="myChart" style="width: 100%; margin-top: 2rem;"></canvas>
     </div>
+    <div class="button" id="download-btn" style="margin-top:1rem;">Pobierz wykres</div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-    let myChart = null;
-    document.getElementById('generate-btn').onclick = async function() {
-      const selects = document.querySelectorAll('select');
-      const group_by = selects[0].value.toLowerCase();
-      const value = selects[1].value.toLowerCase();
-      const chartType = selects[2].value.includes('kołowy') ? 'pie' : 'bar';
-
-      const res = await fetch(`/api/chart-data?group_by=${group_by}&value=${value}`);
-      const data = await res.json();
-
-      const labels = Object.keys(data);
-
-      // Dodaj sprawdzenie czy są dane
-      if (!labels.length) {
-        alert("Brak danych do wyświetlenia wykresu dla wybranych opcji.");
-        return;
-      }
-
-      const datasets = [];
-      const allValues = new Set();
-      labels.forEach(l => Object.keys(data[l]).forEach(v => allValues.add(v)));
-      allValues.forEach(val => {
-        datasets.push({
-          label: val,
-          data: labels.map(l => data[l][val] || 0),
-          backgroundColor: '#' + Math.floor(Math.random()*16777215).toString(16)
-        });
-      });
-
-      if (myChart) myChart.destroy();
-      const ctx = document.getElementById('myChart').getContext('2d');
-      myChart = new Chart(ctx, {
-        type: chartType,
-        data: {
-          labels: labels,
-          datasets: chartType === 'pie'
-            ? [{
-                data: labels.map(l => Object.values(data[l]).reduce((a, b) => a + b, 0)),
-                backgroundColor: labels.map(() => '#' + Math.floor(Math.random()*16777215).toString(16)),
-                label: value
-              }]
-            : datasets
-        },
-        options: {
-          responsive: true,
-          plugins: { legend: { display: true } }
-        }
-      });
-    };
-  </script>
+  <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+  
 </body>
 </html>

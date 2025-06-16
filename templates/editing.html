@@ -50,7 +50,7 @@
     <div class="question-body">
         <form id="add-question-form" method="POST" action="{{ url_for('add_question') }}">
             <p class="question" contenteditable="true" id="new-question-text" data-placeholder="Treść pytania">Treść Pytania</p>
-            <div class="answers-list">
+            <div id="answers-list-container">
                 <label>
                     <input type="radio" name="new_question">
                     <span contenteditable="true" class="editable-answer">Odpowiedź 1</span>
@@ -66,7 +66,9 @@
                 <label>
                     <input type="radio" name="new_question">
                     <span contenteditable="true" class="editable-answer">Odpowiedź 4</span>
+                </label><br>
             </div>
+            <button type="button" id="add-answer-btn" title="Dodaj odpowiedź" aria-label="Dodaj odpowiedź"></button>
             <p class="tag">Etykieta:</p>
             <p contenteditable="true" class="label-input" id="new-question-label" data-placeholder="Opisz pytanie jednym słowem"></p>
         </form>
@@ -84,3 +86,4 @@
 
 <script src="{{ url_for('static', filename='js/editing.js') }}"></script>
 </body>
+</html>
