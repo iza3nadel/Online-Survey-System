@@ -18,3 +18,94 @@ with app.app_context():
     db.session.commit()
     
     print("Pytanie i odpowiedzi dodane do bazy.")
+
+    # Pytanie 2
+    q2 = Question(text="Jaka jest twoja płeć?", label="Płeć")
+    db.session.add(q2)
+    db.session.commit()
+    db.session.add_all([
+        Answer(text="Kobieta", question_id=q2.id),
+        Answer(text="Mężczyzna", question_id=q2.id),
+        Answer(text="Osoba niebinarna", question_id=q2.id),
+        Answer(text="Wolę nie podawać", question_id=q2.id)
+    ])
+    db.session.commit()
+
+    # Pytanie 3
+    q3 = Question(text="Jakie masz wykształcenie?", label="Wykształcenie")
+    db.session.add(q3)
+    db.session.commit()
+    db.session.add_all([
+        Answer(text="Podstawowe", question_id=q3.id),
+        Answer(text="Średnie", question_id=q3.id),
+        Answer(text="Zawodowe", question_id=q3.id),
+        Answer(text="Wyższe", question_id=q3.id)
+    ])
+    db.session.commit()
+
+    # Pytanie 4
+    q4 = Question(text="Gdzie mieszkasz?", label="Miasto")
+    db.session.add(q4)
+    db.session.commit()
+    db.session.add_all([
+        Answer(text="wieś", question_id=q4.id),
+        Answer(text="miasto do 50 tys. mieszkańców", question_id=q4.id),
+        Answer(text="miasto 50-500 tys. mieszkańców", question_id=q4.id),
+        Answer(text="miasto powyżej 500 tys. mieszkańców", question_id=q4.id)
+    ])
+    db.session.commit()
+
+    # Pytanie 5
+    q5 = Question(text="Czy jesteś osobą wierzącą?", label="Wiara")
+    db.session.add(q5)
+    db.session.commit()
+    db.session.add_all([
+        Answer(text="tak", question_id=q5.id),
+        Answer(text="tak, ale niepraktykującą", question_id=q5.id),
+        Answer(text="nie", question_id=q5.id)
+    ])
+    db.session.commit()
+
+    # Pytanie 6
+    q6 = Question(text="Jaka jest twoja syt. materialna?", label="SytuacjaMaterialna")
+    db.session.add(q6)
+    db.session.commit()
+    db.session.add_all([
+        Answer(text="bardzo dobra", question_id=q6.id),
+        Answer(text="dobra", question_id=q6.id),
+        Answer(text="umiarkowana", question_id=q6.id),
+        Answer(text="zła", question_id=q6.id)
+    ])
+    db.session.commit()
+
+    # Pytanie 7
+    q7 = Question(text="Czy to twój pierwszy udział w wyborach?", label="PierwszyUdział")
+    db.session.add(q7)
+    db.session.commit()
+    db.session.add_all([
+        Answer(text="tak", question_id=q7.id),
+        Answer(text="nie", question_id=q7.id)
+    ])
+    db.session.commit()
+
+    # Pytanie 8
+    q8 = Question(text="Na kogo zagłosowałeś?", label="Kandydat")
+    db.session.add(q8)
+    db.session.commit()
+    db.session.add_all([
+        Answer(text="Nawrocki Karol", question_id=q8.id),
+        Answer(text="Trzaskowski Rafał", question_id=q8.id)
+    ])
+    db.session.commit()
+
+    # Pytanie 9
+    q9 = Question(text="Co wpłynęło na Twój wybór?", label="Motywacja")
+    db.session.add(q9)
+    db.session.commit()
+    db.session.add_all([
+        Answer(text="program polityczny", question_id=q9.id),
+        Answer(text="wybór tzw. 'mniejszego zła'", question_id=q9.id),
+        Answer(text="emocje", question_id=q9.id),
+        Answer(text="oddałem/am głos nieważny", question_id=q9.id)
+    ])
+    db.session.commit()

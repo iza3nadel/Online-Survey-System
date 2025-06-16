@@ -141,6 +141,32 @@ input[type="radio"] {
   background-color: #e0e0e0;
 }
 
+#add-answer-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #4e54c8;
+    color: #fff;
+    border: none;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin: 10px auto 0 auto;
+    transition: background 0.2s;
+}
+
+#add-answer-btn:hover {
+    background: #363a7a;
+}
+
+#add-answer-btn::after {
+    content: '+';
+    font-size: 28px;
+    line-height: 1;
+}
+
 
 @media (max-width: 600px) {
     .title {

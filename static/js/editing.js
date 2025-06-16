@@ -107,7 +107,20 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }); // <-- zamknięcie pętli delete
-});
+
+    // Dodawanie nowych odpowiedzi dynamicznie
+    if (document.getElementById('add-answer-btn')) {
+        document.getElementById('add-answer-btn').onclick = function() {
+            const container = document.getElementById('answers-list-container');
+            const count = container.querySelectorAll('label').length + 1;
+            const label = document.createElement('label');
+            label.innerHTML = `<input type="radio" name="new_question">
+                <span contenteditable="true" class="editable-answer">Odpowiedź ${count}</span>`;
+            container.appendChild(label);
+            container.appendChild(document.createElement('br'));
+        };
+    }
+}); // <-- zamknięcie DOMContentLoaded
 
 function updateQuestionNumbers() {
     document.querySelectorAll('.question-box').forEach((box, idx) => {

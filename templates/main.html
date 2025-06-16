@@ -21,5 +21,15 @@
             <div class="small-button" onclick="location.href='/registration'" style="cursor: pointer;">Zarejestruj się</div>
         </div>  
     </div>
+    <script>
+    // Animacja pojawiania się strony po przejściu
+    document.body.style.opacity = 0;
+    document.body.style.transition = 'opacity 0.5s';
+    window.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            document.body.style.opacity = 1;
+        }, 50);
+    });
+    </script>
 </body>
 </html>
