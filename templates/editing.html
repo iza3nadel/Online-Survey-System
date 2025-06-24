@@ -10,7 +10,8 @@
 <body>
     
     <header>
-        <img class="icon arrow" alt="arrow" src="../static/pictures/arrow-left.png" onclick="location.href='/admin'" style="cursor: pointer;">
+        <img class="icon arrow" alt="arrow" src="../static/pictures/arrow-left.png" data-url="{{ url_for('admin.admin_page') }}" 
+        onclick="location.href = this.getAttribute('data-url')" style="cursor: pointer;">
         <p class="title">Edycja pytań</p>
     </header>
 

@@ -13,7 +13,8 @@
             <img src="../static/pictures/checkmark.png" alt="Thank You" class="thank-you-image">
         </div>
         <div class="note">Dziękujemy za wypełnienie ankiety</div>
-        <button class="back-button" onclick="location.href='/main'" style="cursor: pointer;">
+        <button class="back-button" data-url="{{ url_for('survey.main_page') }}" 
+         onclick="location.href = this.dataset.url" style="cursor: pointer;">
             <span>Powrót</span>
         </button>
     </div>

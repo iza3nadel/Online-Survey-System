@@ -1,11 +1,11 @@
 function collectData() {
     const data = [];
-    // Pobierz wszystkie boxy z pytaniami
+
     document.querySelectorAll('.question-box').forEach(box => {
         const questionText = box.querySelector('.question').innerText.trim();
-        // Pobierz tag (etykietę)
+
         const label = box.querySelector('.label-input').innerText.trim();
-        // Pobierz odpowiedzi
+
         const answers = Array.from(box.querySelectorAll('.editable-answer'))
             .map(a => a.innerText.trim())
             .filter(a => a.length > 0);
@@ -45,7 +45,7 @@ function submitNewQuestion() {
         return;
     }
 
-    // Tworzymy ukryty formularz do wysłania danych przez POST
+
     const form = document.createElement('form');
     form.method = 'POST';
     form.action = '/add_question';
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 updateQuestionNumbers();
             }
         });
-    }); // <-- zamknięcie pętli arrow-down
+    }); 
 
     document.querySelectorAll('.icon[alt="arrow-up"]').forEach(function(btn) {
         btn.addEventListener('click', function() {
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 updateQuestionNumbers();
             }
         });
-    }); // <-- zamknięcie pętli arrow-up
+    });
 
     document.querySelectorAll('.icon[alt="delete"]').forEach(function(btn) {
         btn.addEventListener('click', function() {
@@ -106,9 +106,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 updateQuestionNumbers();
             }
         });
-    }); // <-- zamknięcie pętli delete
+    }); 
 
-    // Dodawanie nowych odpowiedzi dynamicznie
+
     if (document.getElementById('add-answer-btn')) {
         document.getElementById('add-answer-btn').onclick = function() {
             const container = document.getElementById('answers-list-container');
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
             container.appendChild(document.createElement('br'));
         };
     }
-}); // <-- zamknięcie DOMContentLoaded
+}); 
 
 function updateQuestionNumbers() {
     document.querySelectorAll('.question-box').forEach((box, idx) => {
@@ -133,7 +133,7 @@ function updateQuestionNumbers() {
 
 let isDirty = false;
 
-// Oznacz stronę jako "zmienioną" przy edycji pól
+
 document.addEventListener('input', function(e) {
     if (
         e.target.classList.contains('editable-answer') ||
@@ -144,7 +144,7 @@ document.addEventListener('input', function(e) {
     }
 });
 
-// Oznacz stronę jako "zmienioną" przy przesuwaniu lub usuwaniu pytań
+
 document.addEventListener('click', function(e) {
     if (
         e.target.classList.contains('icon') &&
@@ -154,7 +154,7 @@ document.addEventListener('click', function(e) {
     }
 });
 
-// Ostrzeżenie przy próbie wyjścia
+
 window.addEventListener('beforeunload', function(e) {
     if (isDirty) {
         e.preventDefault();
@@ -162,7 +162,7 @@ window.addEventListener('beforeunload', function(e) {
     }
 });
 
-// Po zapisaniu zmian resetuj flagę
+
 function saveQuestions() {
     const data = collectData();
 
@@ -173,7 +173,7 @@ function saveQuestions() {
     }).then(response => {
         if (response.ok) {
             alert("Pytania zapisane!");
-            isDirty = false; // <-- reset flagi po zapisie
+            isDirty = false; 
         } else {
             alert("Błąd zapisu.");
         }
