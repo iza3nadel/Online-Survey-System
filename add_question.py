@@ -48,10 +48,10 @@ with app.app_context():
     db.session.add(q4)
     db.session.commit()
     db.session.add_all([
-        Answer(text="wieś", question_id=q4.id),
-        Answer(text="miasto do 50 tys. mieszkańców", question_id=q4.id),
-        Answer(text="miasto 50-500 tys. mieszkańców", question_id=q4.id),
-        Answer(text="miasto powyżej 500 tys. mieszkańców", question_id=q4.id)
+        Answer(text="Wieś", question_id=q4.id),
+        Answer(text="Miasto do 50 tys. mieszkańców", question_id=q4.id),
+        Answer(text="Miasto 50-500 tys. mieszkańców", question_id=q4.id),
+        Answer(text="Miasto powyżej 500 tys. mieszkańców", question_id=q4.id)
     ])
     db.session.commit()
 
@@ -60,9 +60,9 @@ with app.app_context():
     db.session.add(q5)
     db.session.commit()
     db.session.add_all([
-        Answer(text="tak", question_id=q5.id),
-        Answer(text="tak, ale niepraktykującą", question_id=q5.id),
-        Answer(text="nie", question_id=q5.id)
+        Answer(text="Tak", question_id=q5.id),
+        Answer(text="Tak, ale niepraktykującą", question_id=q5.id),
+        Answer(text="Nie", question_id=q5.id)
     ])
     db.session.commit()
 
@@ -71,10 +71,10 @@ with app.app_context():
     db.session.add(q6)
     db.session.commit()
     db.session.add_all([
-        Answer(text="bardzo dobra", question_id=q6.id),
-        Answer(text="dobra", question_id=q6.id),
-        Answer(text="umiarkowana", question_id=q6.id),
-        Answer(text="zła", question_id=q6.id)
+        Answer(text="Bardzo dobra", question_id=q6.id),
+        Answer(text="Dobra", question_id=q6.id),
+        Answer(text="Umiarkowana", question_id=q6.id),
+        Answer(text="Zła", question_id=q6.id)
     ])
     db.session.commit()
 
@@ -83,8 +83,8 @@ with app.app_context():
     db.session.add(q7)
     db.session.commit()
     db.session.add_all([
-        Answer(text="tak", question_id=q7.id),
-        Answer(text="nie", question_id=q7.id)
+        Answer(text="Tak", question_id=q7.id),
+        Answer(text="Nie", question_id=q7.id)
     ])
     db.session.commit()
 
@@ -103,9 +103,9 @@ with app.app_context():
     db.session.add(q9)
     db.session.commit()
     db.session.add_all([
-        Answer(text="program polityczny", question_id=q9.id),
-        Answer(text="wybór tzw. 'mniejszego zła'", question_id=q9.id),
-        Answer(text="emocje", question_id=q9.id),
-        Answer(text="oddałem/am głos nieważny", question_id=q9.id)
+        Answer(text="Program polityczny", question_id=q9.id),
+        Answer(text="Wybór tzw. 'mniejszego zła'", question_id=q9.id),
+        Answer(text="Emocje", question_id=q9.id),
+        Answer(text="Oddałem/am głos nieważny", question_id=q9.id)
     ])
     db.session.commit()
