@@ -172,7 +172,7 @@ body {
   }
 
   .navigation-buttons button {
-    width: 188px; /* Stała szerokość jak na dużych ekranach */
+    width: 188px; 
     height: 60px;
     bottom: 0;
   }
@@ -183,5 +183,18 @@ body {
   }
 }
 
+#finish-button {
+  background-color: #1C1F33;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 18px;
+
+}
 
 

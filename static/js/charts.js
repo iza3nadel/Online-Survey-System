@@ -1,7 +1,7 @@
 let myChart = null;
 let labelToText = {};
 
-// Pobierz etykiety pytań i wypełnij select
+
 async function loadQuestionLabels() {
     const res = await fetch('/api/question-labels');
     const labels = await res.json();
@@ -16,7 +16,7 @@ async function loadQuestionLabels() {
 }
 loadQuestionLabels();
 
-// Pobierz etykiety pytań i wypełnij selecty X i Y
+
 async function loadQuestionLabelsXY() {
     const res = await fetch('/api/question-labels');
     const labels = await res.json();
@@ -88,7 +88,7 @@ document.getElementById('generate-btn').onclick = async function() {
     });
     return;
     }
-    // ...istniejący kod dla słupkowego...
+
     if (!data.labels.length || !data.datasets.length) {
     alert('Brak danych do wyświetlenia wykresu dla wybranych etykiet.');
     return;
@@ -96,7 +96,7 @@ document.getElementById('generate-btn').onclick = async function() {
     if (myChart) myChart.destroy();
     const ctx = document.getElementById('myChart').getContext('2d');
     if (chartType === 'pie') {
-    // Sumuj dane dla każdej kategorii Y
+ 
     const pieLabels = data.datasets.map(ds => ds.label);
     const pieData = data.datasets.map(ds => ds.data.reduce((a, b) => a + b, 0));
     myChart = new Chart(ctx, {
@@ -142,7 +142,7 @@ document.getElementById('generate-btn').onclick = async function() {
     }
 };
 
-// Obsługa blokowania selecta Y dla wykresu kołowego
+
 document.getElementById('chart-type-select').addEventListener('change', function() {
     const ySelect = document.getElementById('y-label-select');
     if (this.value === 'pie') {

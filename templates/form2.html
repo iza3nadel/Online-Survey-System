@@ -16,7 +16,7 @@
       <div class="form-box">
         {% if question %}
           <h2>{{ question.text }}</h2>
-          <form method="POST" action="{{ url_for('form_dynamic', question_number=question_number) }}">
+          <form method="POST" action="{{ url_for('survey.form_dynamic', question_number=question_number) }}">
             {% for answer in question.answers %}
               <label>
                 <input type="radio" name="answer" value="{{ answer.text }}" required />
@@ -26,7 +26,7 @@
             <div class="navigation-buttons">
               {% if prev_number is not none %}
               <button type="button" class="nav-button" id="prev-button"
-                data-href="{{ url_for('form_page', question_number=prev_number) }}"
+                data-href="{{ url_for('survey.form_dynamic', question_number=prev_number) }}"
                 onclick="location.href=this.dataset.href">
                 <img src="../static/pictures/arrow-back.png" alt="Wstecz" style="cursor: pointer;"/>
               </button>

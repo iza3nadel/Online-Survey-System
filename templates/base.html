@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}System Ankietyzacji{% endblock %}</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" />
+    {% block styles %}{% endblock %}
+</head>
+<body>
+    <div class="container">
+        <img class="emblem" alt="polish emblem" src="../static/pictures/emblem.png">
+        <div class="button form" onclick="location.href='/form'" style="cursor: pointer;">
+            <h1>Ankieta</h1>
+        </div>
+        <div class="button admin-panel" onclick="location.href='/main'" style="cursor: pointer;">
+            <h1>Panel Administratora</h1>
+        </div>
+        {% block extra_buttons %}{% endblock %}
+    </div>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -3,33 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home-page</title>
-    <link rel="stylesheet" href="../static/css/style-main.css" />
+    <title>{% block title %}Home-page{% endblock %}</title>
+    {% block styles %}<link rel="stylesheet" href="../static/css/style-main.css" />{% endblock %}
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" />
+    {% extends 'base.html' %}
 </head>
 <body>
-    <div class="container">
-        <img class="emblem" alt="polish emblem" src="../static/pictures/emblem.png">
-        <div class="button form" onclick="location.href='/form'" style="cursor: pointer;">
-            <h1>Ankieta</h1>
-        </div>
-        <div class="button admin-panel" onclick="location.href='/main'" style="cursor: pointer;">
-            <h1>Panel Administratora</h1>
-        </div> 
+    {% block extra_buttons %}
         <div class="button-row">
             <div class="small-button" onclick="location.href='/login'" style="cursor: pointer;">Zaloguj się</div>
             <div class="small-button" onclick="location.href='/registration'" style="cursor: pointer;">Zarejestruj się</div>
-        </div>  
-    </div>
-    <script>
-    // Animacja pojawiania się strony po przejściu
-    document.body.style.opacity = 0;
-    document.body.style.transition = 'opacity 0.5s';
-    window.addEventListener('DOMContentLoaded', function() {
-        setTimeout(function() {
-            document.body.style.opacity = 1;
-        }, 50);
-    });
-    </script>
+        </div>
+    {% endblock %}
+    {% block scripts %}
+    <script src="../static/js/main_index.js"></script>
+    {% endblock %}
 </body>
 </html>

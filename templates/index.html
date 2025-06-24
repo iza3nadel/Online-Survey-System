@@ -3,39 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home-page</title>
-    <link rel="stylesheet" href="../static/css/style.css" />
+    <title>{% block title %}Home-page{% endblock %}</title>
+    {% block styles %}<link rel="stylesheet" href="../static/css/style.css" />{% endblock %}
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" />
+    {% extends 'base.html' %}
 </head>
 <body>
-    <div class="container">
-        <img class="emblem" alt="polish emblem" src="../static/pictures/emblem.png">
-        <div class="button form" onclick="location.href='/form'" style="cursor: pointer;">
-            <h1>Ankieta</h1>
-        </div>
-        <div class="button admin-panel" onclick="location.href='/main'" style="cursor: pointer;">
-            <h1>Panel Administratora</h1>
-        </div>   
-    </div>
-    <script>
-    // Animacja przejścia do main
-    document.querySelector('.admin-panel').addEventListener('click', function(e) {
-        e.preventDefault();
-        document.body.style.transition = 'opacity 0.5s';
-        document.body.style.opacity = 0;
-        setTimeout(function() {
-            window.location.href = '/main';
-        }, 500);
-    });
-    // Animacja przejścia do form
-    document.querySelector('.form').addEventListener('click', function(e) {
-        e.preventDefault();
-        document.body.style.transition = 'opacity 0.5s';
-        document.body.style.opacity = 0;
-        setTimeout(function() {
-            window.location.href = '/form';
-        }, 500);
-    });
-    </script>
+    {% block scripts %}
+    <script src="../static/js/main_index.js"></script>
+    {% endblock %}
 </body>
 </html>

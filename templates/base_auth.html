@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Logowanie{% endblock %}</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" />
+    {% block styles %}{% endblock %}
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+             {% for category, message in messages %}
+               <div class="flash flash-{{ category }}">{{ message }}</div>
+             {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    <div class="arrow">
+        <img class="arrow" alt="arrow" src="../static/pictures/arrow-left.png"  onclick="location.href='/main'" style="cursor: pointer;">
+    </div>
+    <div class="container">
+        <div class="icon">
+            <img class="icon-head" alt="icon-head" src="../static/pictures/head.png">
+            <img class="icon-body" alt="icon-body" src="../static/pictures/body.png">
+        </div>
+        <div class="form-background">
+            {% block form %}{% endblock %}
+        </div>
+    </div>
+</body>
+</html>

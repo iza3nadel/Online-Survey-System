@@ -10,21 +10,22 @@
 <body>
   	<div class="container">
         <h1>Witaj, {{ username }}!</h1>
-        <div class="background" style="cursor: pointer;"><div class="button" onclick="location.href='/editing'">Edycja pytań</div></div>
-        <div class="background" style="cursor: pointer;"><div class="button" onclick="location.href='/charts'">Generowanie wykresów</div></div>
-        <div class="background" style="cursor: pointer;"><div class="button" id="export-btn">Eksport danych</div> 	</div>   	
+        <div class="background" style="cursor: pointer;"><div class="button" data-url="{{ url_for('admin.editing_page') }}" onclick="location.href = this.dataset.url">Edycja pytań</div></div>
+        <div class="background" style="cursor: pointer;"><div class="button" data-url="{{ url_for('admin.charts_page') }}" onclick="location.href = this.dataset.url">Generowanie wykresów</div></div>
+        <div class="background" style="cursor: pointer;"><div class="button" id="export-btn" data-url="{{ url_for('admin.export_responses') }}" >Eksport danych</div>  	</div>   
   	</div>
     <div class="bottom-bar">
       <div class="container-emblem">
         <img class="emblem" alt="emblem" src="../static/pictures/emblem.png">
       </div>
       <div class="container-log">
-          <a href="{{ url_for('logout') }}" class="log-out" style="cursor: pointer;">Wyloguj się</a>
+          <a href="{{ url_for('auth.logout') }}" class="log-out" style="cursor: pointer;">Wyloguj się</a>
       </div>
     </div>
     <script>
       document.getElementById('export-btn').onclick = function() {
-        window.location.href = '/export-responses';
+        const url = this.dataset.url;
+        window.location.href = url;
       };
     </script>
 </body>
