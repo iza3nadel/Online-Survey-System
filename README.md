@@ -77,7 +77,6 @@ System-Ankietyzacji-Wyborczej/
 - **Question** – pytania ankietowe (id, text, label)
 - **Answer** – możliwe odpowiedzi (id, text, question_id)
 - **Response** – odpowiedzi użytkowników (id, survey_id, question_label, answer_text)
-- **SurveyResponse** – dodatkowe dane demograficzne (opcjonalnie)
 
 ## 6. Blueprinty i routing
 - **auth** – `/login`, `/registration`, `/logout`
