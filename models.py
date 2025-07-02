@@ -2,8 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import UserMixin
 
-# Tworzymy instancje, które będą inicjalizowane w app.py
-# (ale importowane wszędzie tam, gdzie są potrzebne)
+
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 
