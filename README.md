@@ -1,5 +1,3 @@
-# System-Ankietyzacji-Wyborczej
-
 # System Ankietyzacji Wyborczej – Dokumentacja
 
 ## Spis treści
@@ -13,7 +11,6 @@
 8. Eksport danych
 9. Dodawanie pytań do bazy
 10. Bezpieczeństwo i uwierzytelnianie
-11. Najczęstsze problemy i FAQ
 
 ---
 
